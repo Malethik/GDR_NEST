@@ -8,7 +8,6 @@ const select = {
   name: true,
   email: true,
   password: false,
-  role: true,
   createdAt: true,
   updatedAt: true,
 };
@@ -17,7 +16,7 @@ export class UserService {
   constructor(private service: PrismaService) {}
 
   async create(createUserDto: CreateUserDto): Promise<CreateUserDto> {
-    return this.service.user.create({
+    return await this.service.user.create({
       data: {
         name: createUserDto.name,
         email: createUserDto.email,
@@ -30,8 +29,8 @@ export class UserService {
     return await this.service.user.findMany({ select });
   }
 
-  findOne(id: number) {
-    return this.service.user.findUnique({
+  async findOne(id: number) {
+    return await this.service.user.findUnique({
       where: { id },
       select,
     });
