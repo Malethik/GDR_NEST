@@ -1,8 +1,10 @@
 export class Ability {
+  id: number;
   name: string;
   description: string;
   effect: { [key: string]: number };
   constructor(
+    id: number,
     name: string,
     description: string,
     effect: { [key: string]: number },
@@ -19,12 +21,13 @@ export class Ability {
 export class Rage extends Ability {
   constructor() {
     super(
+      1,
       'Rage',
       'In battle, you fight with primal ferocity. On your turn, you can enter a rage as a bonus action.',
       {
-        str: 4,
-        con: 4,
-        fortitudeSave: 2,
+        str: +4,
+        con: +4,
+        fortitudeSave: +2,
         cA: -2,
       },
     );

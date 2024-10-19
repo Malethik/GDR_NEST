@@ -1,4 +1,5 @@
 export class MainCharClass {
+  id: number;
   level: number;
   name: string;
   description: string;
@@ -11,6 +12,7 @@ export class MainCharClass {
   willSave: number;
 
   constructor(
+    id: number,
     level: number,
     name: string,
     description: string,
@@ -25,6 +27,7 @@ export class MainCharClass {
       willSave: number;
     },
   ) {
+    this.id = id;
     this.level = level;
     this.name = name;
     this.description = description;
@@ -44,6 +47,7 @@ export class MainCharClass {
 export class Barbarian extends MainCharClass {
   constructor() {
     super(
+      1,
       1,
       'Barbarian',
       'A fierce warrior of primitive background who can enter a battle rage.',
