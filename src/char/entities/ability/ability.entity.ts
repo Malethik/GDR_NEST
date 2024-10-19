@@ -25,7 +25,7 @@ export class Rage extends Ability {
         str: 4,
         con: 4,
         fortitudeSave: 2,
-        CA: -2,
+        cA: -2,
       },
     );
   }

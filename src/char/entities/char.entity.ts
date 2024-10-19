@@ -1,3 +1,4 @@
+import { Armor, Weapon } from '../item/item.entity';
 import { Ability } from './ability/ability.entity';
 import { Alignment } from './alignment/alignment.entity';
 import { MainCharClass } from './class/class.entity';
@@ -25,9 +26,13 @@ export class Char {
   int: number;
   wis: number;
   cha: number;
+  cA: number;
+  atk: number;
   abilities: Ability[];
   spell: string[];
   inventory: string[];
+  armor: Armor;
+  weapon: Weapon;
   readonly createdAt: Date;
   updatedAt: Date;
   constructor(
@@ -54,9 +59,13 @@ export class Char {
     int: number,
     wis: number,
     cha: number,
+    cA: number,
+    atk: number,
     abilities: Ability[],
     spell: string[],
     inventory: string[],
+    armor: Armor,
+    weapon: Weapon,
     createdAt: Date,
     updatedAt: Date,
   ) {
@@ -81,9 +90,13 @@ export class Char {
     this.int = int + this.race.int;
     this.wis = wis + this.race.wis;
     this.cha = cha + this.race.cha;
+    this.cA = 10 + this.getModifierDex() + this.useArmor(this.armor.name);
+    this.atk = this.getModifierStr() + this.charClass.attackBonus;
     this.abilities = abilities.concat(this.charClass.abilities);
     this.spell = spell;
     this.inventory = inventory;
+    this.armor = armor;
+    this.weapon = weapon;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
@@ -136,22 +149,63 @@ export class Char {
     return Math.floor(Math.random() * this.charClass.dadLife) + 1;
   }
 
-  applyAbilityEffect(effect: { [key: string]: number }): void {
+  applyEffect(effect: { [key: string]: number }): void {
     for (const key in effect) {
       if (Object.prototype.hasOwnProperty.call(this, key)) {
         (this as any)[key] += effect[key];
       }
     }
   }
+  useWeapon(weaponName: string): number {
+    const weapon = this.weapon;
+    if (weapon) {
+      this.applyEffect(weapon.effect);
+      return weapon.effect.damage;
+    } else {
+      console.log(`Weapon ${weaponName} not found.`);
+      return 0;
+    }
+  }
+
+  useArmor(armorName: string): number {
+    const armor = this.armor;
+    if (armor) {
+      this.applyEffect(armor.effect);
+      return armor.effect.cA || 0;
+    } else {
+      console.log(`Armor ${armorName} not found.`);
+      return 0;
+    }
+  }
+
   useAbility(abilityName: string): void {
     const ability = this.abilities.find((ab) => ab.name === abilityName);
     if (ability) {
-      this.applyAbilityEffect(ability.effect);
+      this.applyEffect(ability.effect);
     } else {
       console.log(`Ability ${abilityName} not found.`);
     }
   }
+
   getModifier(value: number): number {
     return Math.floor((value - 10) / 2);
+  }
+  getModifierStr(): number {
+    return this.getModifier(this.str);
+  }
+  getModifierDex(): number {
+    return this.getModifier(this.dex);
+  }
+  getModifierCon(): number {
+    return this.getModifier(this.con);
+  }
+  getModifierInt(): number {
+    return this.getModifier(this.int);
+  }
+  getModifierWis(): number {
+    return this.getModifier(this.wis);
+  }
+  getModifierCha(): number {
+    return this.getModifier(this.cha);
   }
 }
