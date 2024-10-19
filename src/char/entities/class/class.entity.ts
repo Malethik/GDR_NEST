@@ -4,7 +4,7 @@ export class MainCharClass {
   name: string;
   description: string;
   dadLife: number;
-  abilities: any[];
+  abilities: string[];
   attackBonus: number;
   secondAttackBonus: number;
   fortitudeSave: number;
@@ -17,7 +17,7 @@ export class MainCharClass {
     name: string,
     description: string,
     dadLife: number,
-    abilities: any[],
+    abilities: string[],
     // class modifiers
     modifiers: {
       attackBonus: number;

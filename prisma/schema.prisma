@@ -14,10 +14,132 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
+  id        Int         @id @default(autoincrement())
+  email     String      @unique
   name      String
   password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  character Character[]
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+}
+
+model Character {
+  id              Int           @id @default(autoincrement())
+  user            User          @relation(fields: [userId], references: [id])
+  userId          Int
+  name            String
+  age             Int
+  sex             String
+  race            Race          @relation(fields: [raceId], references: [id])
+  height          Int
+  weight          Int
+  skin            String
+  hair            String
+  eyes            String
+  alignment       Alignment     @relation(fields: [alignmentId], references: [id])
+  level           Int
+  pE              Int
+  charClass       MainCharClass @relation(fields: [mainCharClassId], references: [id])
+  life            Int
+  str             Int
+  dex             Int
+  con             Int
+  int             Int
+  wis             Int
+  cha             Int
+  cA              Int
+  atk             Int
+  abilities       Ability[]
+  spell           String[]
+  inventory       String[]
+  armor           Armor         @relation(fields: [armorId], references: [id])
+  weapon          Weapon        @relation(fields: [weaponId], references: [id])
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  raceId          Int
+  mainCharClassId Int
+  alignmentId     Int
+  weaponId        Int
+  armorId         Int
+}
+
+model Race {
+  id          Int         @id @default(autoincrement())
+  name        String
+  description String
+  str         Int
+  dex         Int
+  con         Int
+  int         Int
+  wis         Int
+  cha         Int
+  characterId Int
+  character   Character[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model Alignment {
+  id          Int         @id @default(autoincrement())
+  name        String
+  description String
+  characterId Int
+  character   Character[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model MainCharClass {
+  id            Int         @id @default(autoincrement())
+  level         Int
+  name          String
+  description   String
+  dadLife       Int
+  abilities     String[]
+  attackBonus   Int
+  SecondAttack  Int
+  fortitudeSave Int
+  reflexSave    Int
+  willSave      Int
+  characterId   Int
+  character     Character[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model Ability {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String
+  effect      Json
+  characterId Int
+  character   Character @relation(fields: [characterId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Weapon {
+  id          Int         @id @default(autoincrement())
+  name        String
+  description String
+  value       Int
+  weight      Int
+  effect      Json
+  characterId Int
+  character   Character[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model Armor {
+  id          Int         @id @default(autoincrement())
+  name        String
+  description String
+  value       Int
+  weight      Int
+  effect      Json
+  characterId Int
+  character   Character[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 }
