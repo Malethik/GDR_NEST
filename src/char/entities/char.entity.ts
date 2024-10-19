@@ -151,4 +151,7 @@ export class Char {
       console.log(`Ability ${abilityName} not found.`);
     }
   }
+  getModifier(value: number): number {
+    return Math.floor((value - 10) / 2);
+  }
 }
