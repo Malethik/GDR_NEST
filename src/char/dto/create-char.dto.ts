@@ -1,6 +1,8 @@
+import { Ability } from '../entities/ability/ability.entity';
 import { Alignment } from '../entities/alignment/alignment.entity';
-import { CharClass } from '../entities/class/charClass.entity';
+import { MainCharClass } from '../entities/class/class.entity';
 import { Race } from '../entities/race/race.entity';
+import { Armor, Weapon } from '../item/item.entity';
 
 export class CreateCharDto {
   id: number;
@@ -8,6 +10,7 @@ export class CreateCharDto {
   age: number;
   sex: string;
   race: Race;
+  raceId: number;
   height: number;
   weight: number;
   skin: string;
@@ -15,16 +18,29 @@ export class CreateCharDto {
   eyes: string;
   alignment: Alignment;
   level: number;
-  charClass: CharClass;
+  pE: number;
+  charClass: MainCharClass;
+  life: number;
   str: number;
   dex: number;
   con: number;
   int: number;
   wis: number;
   cha: number;
-  ability: string[];
+  cA: number;
+  atk: number;
+  secondAtk: number;
+  fortitudeSave: number;
+  reflexSave: number;
+  willSave: number;
+  iniciative: number;
+  gold: number;
+  abilities: Ability[];
   spell: string[];
   inventory: string[];
+  armor: Armor;
+  weapon: Weapon;
   readonly createdAt: Date;
   updatedAt: Date;
+  userId: any;
 }

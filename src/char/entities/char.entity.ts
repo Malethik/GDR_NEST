@@ -28,13 +28,16 @@ export class Char {
   cha: number;
   cA: number;
   atk: number;
+  secondAtk: number;
+  fortitudeSave: number;
+  reflexSave: number;
+  willSave: number;
+  iniciative: number;
   abilities: Ability[];
   spell: string[];
   inventory: string[];
   armor: Armor;
   weapon: Weapon;
-  readonly createdAt: Date;
-  updatedAt: Date;
   constructor(
     id: number,
     //no logical atributtes
@@ -66,8 +69,6 @@ export class Char {
     inventory: string[],
     armor: Armor,
     weapon: Weapon,
-    createdAt: Date,
-    updatedAt: Date,
   ) {
     this.id = id;
     this.name = name;
@@ -97,8 +98,6 @@ export class Char {
     this.inventory = inventory;
     this.armor = armor;
     this.weapon = weapon;
-    this.createdAt = createdAt;
-    this.updatedAt = updatedAt;
   }
 
   calcolateLevel(): number {
